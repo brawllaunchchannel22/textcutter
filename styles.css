@@ -250,7 +250,7 @@ textarea {
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 1.25rem;
+    padding: 1rem 1.25rem;
     color: var(--text-primary);
     font-family: var(--font-sans);
     font-size: 1rem;
@@ -259,6 +259,7 @@ textarea {
     transition: var(--transition-normal);
     outline: none;
     box-shadow: var(--shadow-inner);
+    overflow-y: auto;
 }
 
 [data-theme="light"] textarea {
@@ -628,6 +629,7 @@ select:focus {
     transition: var(--transition-normal);
     position: relative;
     overflow: hidden;
+    flex-shrink: 0;
     animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 

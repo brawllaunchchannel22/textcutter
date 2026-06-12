@@ -497,13 +497,13 @@ function autoApplyBrowserLang(modal) {
     const toggleBtn = modal.querySelector('.lang-modal-toggle');
 
     if (isGerman) {
-        enBlock.classList.add('hidden-lang');
-        deBlock.classList.add('active');
+        enBlock.style.setProperty('display', 'none', 'important');
+        deBlock.style.setProperty('display', 'flex', 'important');
         toggleBtn.classList.add('de-active');
         toggleBtn.textContent = 'EN';
     } else {
-        enBlock.classList.remove('hidden-lang');
-        deBlock.classList.remove('active');
+        enBlock.style.setProperty('display', 'flex', 'important');
+        deBlock.style.setProperty('display', 'none', 'important');
         toggleBtn.classList.remove('de-active');
         toggleBtn.textContent = 'DE';
     }
@@ -615,26 +615,27 @@ function setupEventListeners() {
     });
 
     // DE / EN language toggles inside modals
-    // Read actual DOM state so auto-applied language and manual clicks stay in sync
+    // Read actual DOM display state so auto-applied language and manual clicks stay in sync
     document.querySelectorAll('dialog .lang-modal-toggle').forEach(toggleBtn => {
-        toggleBtn.addEventListener('click', () => {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             const modal = toggleBtn.closest('dialog');
             const enBlock = modal.querySelector('.lang-en');
             const deBlock = modal.querySelector('.lang-de');
 
-            // Check current state from DOM — not a stale closure variable
-            const currentlyDE = deBlock.classList.contains('active');
+            // Check if German is currently visible
+            const isCurrentlyDE = window.getComputedStyle(deBlock).display !== 'none';
 
-            if (currentlyDE) {
+            if (isCurrentlyDE) {
                 // Switch to English
-                enBlock.classList.remove('hidden-lang');
-                deBlock.classList.remove('active');
+                enBlock.style.setProperty('display', 'flex', 'important');
+                deBlock.style.setProperty('display', 'none', 'important');
                 toggleBtn.classList.remove('de-active');
                 toggleBtn.textContent = 'DE';
             } else {
                 // Switch to German
-                enBlock.classList.add('hidden-lang');
-                deBlock.classList.add('active');
+                enBlock.style.setProperty('display', 'none', 'important');
+                deBlock.style.setProperty('display', 'flex', 'important');
                 toggleBtn.classList.add('de-active');
                 toggleBtn.textContent = 'EN';
             }
