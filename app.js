@@ -200,39 +200,58 @@ function splitTextIntoSegments(text, limit, options) {
             let candidate = text.substring(index, endIdx);
 
             if (smartSplit) {
-                // Determine if we can split at a word boundary
+                // Determine if we can split at a sentence ender, clause ender, or word boundary
                 const nextChar = text.charAt(endIdx);
                 const isNextWhitespace = /\s/.test(nextChar);
+                let splitFound = false;
 
-                // If next character is whitespace, we split perfectly here
-                if (!isNextWhitespace) {
-                    // Search backwards in candidate for a whitespace character
-                    let lastSpace = -1;
-                    for (let i = candidate.length - 1; i >= 0; i--) {
-                        if (/\s/.test(candidate.charAt(i))) {
-                            lastSpace = i;
+                // Priority 1: Sentence Enders (\n, ., ?, !, ;) followed by space or end of text
+                // Backtrack window up to 50% of the budget
+                for (let i = candidate.length - 1; i >= Math.floor(budget * 0.5); i--) {
+                    const char = candidate.charAt(i);
+                    const isSentenceEnder = char === '\n' || char === '.' || char === '?' || char === '!' || char === ';';
+                    if (isSentenceEnder) {
+                        const nextTextChar = text.charAt(index + i + 1);
+                        if (!nextTextChar || /\s/.test(nextTextChar)) {
+                            endIdx = index + i + 1;
+                            splitFound = true;
                             break;
                         }
                     }
+                }
 
-                    // Only split if the space isn't too far back (limit boundary shrink)
-                    // We only back-track up to 35% of the segment budget to avoid overly tiny slices
-                    if (lastSpace > budget * 0.65) {
-                        endIdx = index + lastSpace;
-                    } else {
-                        // If no space, look for punctuation (. , ! ? ; -)
-                        let lastPunct = -1;
-                        const punctRegex = /[.,!?;-]/;
-                        for (let i = candidate.length - 1; i >= 0; i--) {
-                            if (punctRegex.test(candidate.charAt(i))) {
-                                lastPunct = i;
+                // Priority 2: Clause Enders (,, :, -) followed by space or end of text
+                // Backtrack window up to 40% of the budget
+                if (!splitFound) {
+                    for (let i = candidate.length - 1; i >= Math.floor(budget * 0.6); i--) {
+                        const char = candidate.charAt(i);
+                        const isClauseEnder = char === ',' || char === ':' || char === '-';
+                        if (isClauseEnder) {
+                            const nextTextChar = text.charAt(index + i + 1);
+                            if (!nextTextChar || /\s/.test(nextTextChar)) {
+                                endIdx = index + i + 1;
+                                splitFound = true;
                                 break;
                             }
                         }
-                        if (lastPunct > budget * 0.7) {
-                            endIdx = index + lastPunct + 1; // Split after the punctuation mark
+                    }
+                }
+
+                // Priority 3: Word boundaries (whitespace)
+                // If next character is whitespace, we split perfectly at budget boundary.
+                // Otherwise, search backwards up to 30% of the budget.
+                if (!splitFound) {
+                    if (isNextWhitespace) {
+                        // split exactly at budget boundary
+                        splitFound = true;
+                    } else {
+                        for (let i = candidate.length - 1; i >= Math.floor(budget * 0.7); i--) {
+                            if (/\s/.test(candidate.charAt(i))) {
+                                endIdx = index + i;
+                                splitFound = true;
+                                break;
+                            }
                         }
-                        // Fall back to cutting mid-word if no space or punctuation fits the boundary window
                     }
                 }
             }
