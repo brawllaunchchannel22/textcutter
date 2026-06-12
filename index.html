@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextSplit - Smart Text Splitting & Formatting Tool</title>
+    <meta name="description" content="Split long texts into multiple custom segments for YouTube comments, Twitter, Discord, and Instagram without cutting words. Features smart character limits, numbering, and easy copy-pasting.">
+    <!-- SEO keywords -->
+    <meta name="keywords" content="text splitter, character limit, youtube comment splitter, twitter thread maker, split text, word counter, segment text">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-decor animate-bg"></div>
+    <div class="background-decor-2 animate-bg-2"></div>
+
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-wrapper">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 12H17M7 8H17M7 16H13" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h1 class="app-title">Text<span>Split</span></h1>
+            </div>
+            
+            <div class="header-actions">
+                <button id="themeToggle" class="btn-icon" aria-label="Toggle visual theme">
+                    <!-- Sun Icon -->
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 1V3M12 21V23M4.22 4.22L5.64 5.64M18.36 18.36L19.78 19.78M1 12H3M21 12H23M4.22 19.78L5.64 18.36M18.36 5.64L19.78 4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <!-- Moon Icon -->
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Input & Controls Section -->
+        <section class="panel-card input-panel">
+            <div class="panel-header">
+                <h2>Input Text</h2>
+                <button id="clearInput" class="btn-secondary btn-sm" aria-label="Clear all input text">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm">
+                        <path d="M19 7L18.1327 19.1425C18.0579 20.1891 17.187 21 16.1378 21H7.86224C6.81296 21 5.94208 20.1891 5.86725 19.1425L5 7M10 11V17M14 11V17M15 7V4C15 3.44772 14.5523 3 14 3H10C9.44772 3 9 3.44772 9 4V7M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Clear
+                </button>
+            </div>
+            
+            <div class="textarea-container">
+                <textarea id="textInput" placeholder="Paste or type your long text here... TextSplit will automatically partition it according to your character limits, spacing rules, and formatting preferences." aria-label="Paste long text to split"></textarea>
+                <div class="textarea-counters">
+                    <span id="charCount">0 characters</span>
+                    <span id="wordCount">0 words</span>
+                </div>
+            </div>
+
+            <div class="settings-grid">
+                <!-- Limit Controls -->
+                <div class="settings-group">
+                    <label for="presetSelect" class="settings-label">Character Limit Preset</label>
+                    <div class="select-wrapper">
+                        <select id="presetSelect">
+                            <option value="youtube">YouTube Comment (10,000)</option>
+                            <option value="discord">Discord Message (2,000)</option>
+                            <option value="twitter">Twitter / X Post (280)</option>
+                            <option value="instagram">Instagram Caption (2,200)</option>
+                            <option value="reddit">Reddit Post (40,000)</option>
+                            <option value="custom" selected>Custom Character Limit</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-group" id="customLimitContainer">
+                    <label for="customLimit" class="settings-label">Character Limit</label>
+                    <div class="number-input-wrapper">
+                        <input type="number" id="customLimit" min="10" max="100000" value="500">
+                    </div>
+                </div>
+
+                <!-- Numbering Formats -->
+                <div class="settings-group">
+                    <label for="suffixFormat" class="settings-label">Segment Counter Format</label>
+                    <div class="select-wrapper">
+                        <select id="suffixFormat">
+                            <option value="parentheses">(1/N) - Parentheses</option>
+                            <option value="brackets">[1/N] - Brackets</option>
+                            <option value="slash">1/N - Minimalist</option>
+                            <option value="text">Part 1 of N</option>
+                            <option value="none">None - Do not add numbers</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <label for="suffixPosition" class="settings-label">Counter Position</label>
+                    <div class="select-wrapper">
+                        <select id="suffixPosition">
+                            <option value="end">Add to End of Text</option>
+                            <option value="start">Add to Start of Text</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toggles-container">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="smartSplit" checked>
+                    <span class="slider"></span>
+                    <span class="toggle-label">
+                        <strong>Smart Split</strong>
+                        <span class="toggle-description">Prevent cutting mid-word (split at space or punctuation)</span>
+                    </span>
+                </label>
+                
+                <label class="toggle-switch">
+                    <input type="checkbox" id="trimSegments" checked>
+                    <span class="slider"></span>
+                    <span class="toggle-label">
+                        <strong>Trim Whitespace</strong>
+                        <span class="toggle-description">Strip leading/trailing spaces from each part</span>
+                    </span>
+                </label>
+            </div>
+        </section>
+
+        <!-- Output Section -->
+        <section class="panel-card output-panel">
+            <div class="panel-header">
+                <h2>Split Segments</h2>
+                <div class="output-actions">
+                    <button id="copyNextBtn" class="btn-primary btn-sm disabled" aria-label="Copy next uncopied segment">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm">
+                            <path d="M13 5L20 12M20 12L13 19M20 12H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Copy Next
+                    </button>
+                    <button id="copyAllBtn" class="btn-secondary btn-sm disabled" aria-label="Copy all segments at once">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-sm">
+                            <path d="M8 5H6C4.89543 5 4 5.89543 4 7V19C4 20.1046 4.89543 21 6 21H16C17.1046 21 18 20.1046 18 19V17M8 5C8 6.10457 8.89543 7 10 7H14C15.1046 7 16 6.10457 16 5M8 5C8 3.89543 8.89543 3 10 3H14C15.1046 3 16 3.89543 16 5M16 11H20M16 14H20M12 11H13M12 14H13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Copy All
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="output-stats hidden" id="outputStats">
+                <div class="stat-item">
+                    <span class="stat-value" id="statSegments">0</span>
+                    <span class="stat-label">Total Parts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="statChars">0</span>
+                    <span class="stat-label">Total Chars</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="statNextCopy">Part 1</span>
+                    <span class="stat-label">Active Copy</span>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state" id="emptyState">
+                <div class="empty-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 6H20M4 12H20M4 18H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <h3>No input text yet</h3>
+                <p>Add some text in the input box to see your split segments generate dynamically here.</p>
+            </div>
+
+            <!-- Segment Cards Container -->
+            <div class="segments-list" id="segmentsList"></div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p>&copy; 2026 TextSplit. All data is processed locally in your browser. No data is sent to any server.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

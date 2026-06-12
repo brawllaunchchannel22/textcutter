@@ -1,0 +1,11 @@
+{
+  "name": "cut-text-tool",
+  "version": "1.0.0",
+  "description": "Sleek and responsive smart text splitting web tool.",
+  "scripts": {
+    "dev": "browser-sync start --server --files \"index.html, styles.css, app.js\""
+  },
+  "devDependencies": {
+    "browser-sync": "^3.0.2"
+  }
+}
