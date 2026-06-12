@@ -563,6 +563,47 @@ function setupEventListeners() {
     // Button actions
     elements.copyNextBtn.addEventListener('click', copyNext);
     elements.copyAllBtn.addEventListener('click', copyAll);
+
+    // Legal notice modals
+    const impressumModal = document.getElementById('impressumModal');
+    const datenschutzModal = document.getElementById('datenschutzModal');
+    const impressumLink = document.getElementById('impressumLink');
+    const datenschutzLink = document.getElementById('datenschutzLink');
+
+    if (impressumLink && impressumModal) {
+        impressumLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            impressumModal.showModal();
+        });
+    }
+
+    if (datenschutzLink && datenschutzModal) {
+        datenschutzLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            datenschutzModal.showModal();
+        });
+    }
+
+    // Close buttons on dialogs
+    document.querySelectorAll('dialog .close-modal').forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.closest('dialog').close();
+        });
+    });
+
+    // Close on backdrop click
+    [impressumModal, datenschutzModal].forEach(modal => {
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                const rect = modal.getBoundingClientRect();
+                const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+                                    rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+                if (!isInDialog) {
+                    modal.close();
+                }
+            });
+        }
+    });
 }
 
 // Bootstrapping the app

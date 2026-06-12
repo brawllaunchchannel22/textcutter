@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.2">
 </head>
 <body>
     <div class="background-decor animate-bg"></div>
@@ -189,7 +189,60 @@
 
     <footer class="app-footer">
         <p>&copy; 2026 TextSplit. All data is processed locally in your browser. No data is sent to any server.</p>
+        <div class="footer-links">
+            <a href="#" id="impressumLink">Legal Notice (Impressum)</a>
+            <a href="#" id="datenschutzLink">Privacy Policy</a>
+        </div>
     </footer>
+
+    <!-- Legal Notice Dialog -->
+    <dialog id="impressumModal" class="legal-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Legal Notice (Impressum)</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Information according to § 5 DDG (Germany):</strong></p>
+                <p>[Your Name / Company Name]<br>
+                [Street and House Number]<br>
+                [ZIP Code and City]</p>
+                
+                <p><strong>Contact:</strong><br>
+                Phone: [Your Phone Number]<br>
+                E-Mail: [Your E-Mail Address]</p>
+                
+                <p><strong>Responsible for content according to § 18 MStV:</strong><br>
+                [Your Name]<br>
+                [Your Address]</p>
+                
+                <p><em>Disclaimer: This is a template. Please replace the bracketed placeholders with your actual contact details to comply with German legal requirements.</em></p>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- Privacy Policy Dialog -->
+    <dialog id="datenschutzModal" class="legal-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Privacy Policy</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4>1. General Information</h4>
+                <p>We take the protection of your personal data very seriously. This privacy policy explains what data we process when you visit this website.</p>
+                
+                <h4>2. Local Data Processing</h4>
+                <p>This application processes all texts and options exclusively in your local web browser using JavaScript. No text input is sent to, stored, or processed on any external server. The local storage (LocalStorage) of your browser is used solely to remember your preferences (active text, character limits, suffix styles, and dark mode theme) for your convenience.</p>
+                
+                <h4>3. Server Logs (GitHub Pages)</h4>
+                <p>This website is hosted on GitHub Pages. When accessing this website, the hosting provider (GitHub, Inc.) may collect metadata (such as your IP address, browser type, and time of access) in server log files. This processing is legally based on legitimate interests (security and delivery of the website) according to Art. 6 (1) (f) GDPR.</p>
+                
+                <h4>4. Your Rights</h4>
+                <p>You have the right to request information about your stored data, correction, deletion, or restriction of processing from the hosting provider. You also have the right to lodge a complaint with a supervisory authority.</p>
+            </div>
+        </div>
+    </dialog>
 
     <!-- Scripts -->
     <script src="app.js"></script>
