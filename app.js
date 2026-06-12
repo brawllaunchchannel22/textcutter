@@ -641,14 +641,11 @@ function setupEventListeners() {
         });
     });
 
-    // Close on backdrop click
+    // Close on backdrop click (native dialog target is the backdrop itself)
     [impressumModal, datenschutzModal].forEach(modal => {
         if (modal) {
             modal.addEventListener('click', (e) => {
-                const rect = modal.getBoundingClientRect();
-                const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
-                                    rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
-                if (!isInDialog) {
+                if (e.target === modal) {
                     modal.close();
                 }
             });
