@@ -908,3 +908,26 @@ dialog.legal-modal::backdrop {
     color: var(--accent-solid);
 }
 
+/* Language toggle in modals */
+.lang-de {
+    display: none;
+}
+
+.lang-de.active {
+    display: contents;
+}
+
+.lang-en.hidden-lang {
+    display: none;
+}
+
+.lang-modal-toggle {
+    letter-spacing: 0.05em;
+    font-weight: 700 !important;
+}
+
+.lang-modal-toggle.de-active {
+    background: var(--accent-gradient);
+    color: white;
+    border-color: transparent;
+}

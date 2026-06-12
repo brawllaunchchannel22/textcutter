@@ -488,6 +488,27 @@ function copyToClipboard(text) {
     }
 }
 
+// Auto-apply browser language to a modal
+// If browser language is German, show DE section; otherwise show EN
+function autoApplyBrowserLang(modal) {
+    const isGerman = navigator.language && navigator.language.toLowerCase().startsWith('de');
+    const enBlock = modal.querySelector('.lang-en');
+    const deBlock = modal.querySelector('.lang-de');
+    const toggleBtn = modal.querySelector('.lang-modal-toggle');
+
+    if (isGerman) {
+        enBlock.classList.add('hidden-lang');
+        deBlock.classList.add('active');
+        toggleBtn.classList.add('de-active');
+        toggleBtn.textContent = 'EN';
+    } else {
+        enBlock.classList.remove('hidden-lang');
+        deBlock.classList.remove('active');
+        toggleBtn.classList.remove('de-active');
+        toggleBtn.textContent = 'DE';
+    }
+}
+
 // Setup Event Listeners
 function setupEventListeners() {
     // Theme toggle
@@ -574,6 +595,7 @@ function setupEventListeners() {
         impressumLink.addEventListener('click', (e) => {
             e.preventDefault();
             impressumModal.showModal();
+            autoApplyBrowserLang(impressumModal);
         });
     }
 
@@ -581,6 +603,7 @@ function setupEventListeners() {
         datenschutzLink.addEventListener('click', (e) => {
             e.preventDefault();
             datenschutzModal.showModal();
+            autoApplyBrowserLang(datenschutzModal);
         });
     }
 
@@ -588,6 +611,33 @@ function setupEventListeners() {
     document.querySelectorAll('dialog .close-modal').forEach(btn => {
         btn.addEventListener('click', () => {
             btn.closest('dialog').close();
+        });
+    });
+
+    // DE / EN language toggles inside modals
+    // Each modal independently tracks its language state
+    document.querySelectorAll('dialog .lang-modal-toggle').forEach(toggleBtn => {
+        // Start in EN mode
+        let isDE = false;
+        toggleBtn.addEventListener('click', () => {
+            isDE = !isDE;
+            const modal = toggleBtn.closest('dialog');
+            const enBlock = modal.querySelector('.lang-en');
+            const deBlock = modal.querySelector('.lang-de');
+
+            if (isDE) {
+                // Show German, hide English
+                enBlock.classList.add('hidden-lang');
+                deBlock.classList.add('active');
+                toggleBtn.classList.add('de-active');
+                toggleBtn.textContent = 'EN';
+            } else {
+                // Show English, hide German
+                enBlock.classList.remove('hidden-lang');
+                deBlock.classList.remove('active');
+                toggleBtn.classList.remove('de-active');
+                toggleBtn.textContent = 'DE';
+            }
         });
     });
 

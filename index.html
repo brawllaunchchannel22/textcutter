@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=1.0.2">
+    <link rel="stylesheet" href="styles.css?v=1.0.3">
 </head>
 <body>
     <div class="background-decor animate-bg"></div>
@@ -199,24 +199,47 @@
     <dialog id="impressumModal" class="legal-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Legal Notice (Impressum)</h3>
-                <button class="close-modal">&times;</button>
+                <h3>Legal Notice / Impressum</h3>
+                <div style="display: flex; align-items: center;">
+                    <button class="lang-modal-toggle btn-secondary btn-sm" style="margin-right: 1rem; font-size: 0.75rem; padding: 0.35rem 0.65rem;" aria-label="Toggle language / Sprache wechseln">DE / EN</button>
+                    <button class="close-modal">&times;</button>
+                </div>
             </div>
             <div class="modal-body">
-                <p><strong>Information according to § 5 DDG (Germany):</strong></p>
-                <p>[Your Name / Company Name]<br>
-                [Street and House Number]<br>
-                [ZIP Code and City]</p>
-                
-                <p><strong>Contact:</strong><br>
-                Phone: [Your Phone Number]<br>
-                E-Mail: [Your E-Mail Address]</p>
-                
-                <p><strong>Responsible for content according to § 18 MStV:</strong><br>
-                [Your Name]<br>
-                [Your Address]</p>
-                
-                <p><em>Disclaimer: This is a template. Please replace the bracketed placeholders with your actual contact details to comply with German legal requirements.</em></p>
+                <!-- English Section -->
+                <div class="lang-en">
+                    <p><strong>Information according to § 5 DDG (Germany):</strong></p>
+                    <p>[Your Name / Company Name]<br>
+                    [Street and House Number]<br>
+                    [ZIP Code and City]</p>
+                    
+                    <p><strong>Contact:</strong><br>
+                    Phone: [Your Phone Number]<br>
+                    E-Mail: [Your E-Mail Address]</p>
+                    
+                    <p><strong>Responsible for content according to § 18 MStV:</strong><br>
+                    [Your Name]<br>
+                    [Your Address]</p>
+                    
+                    <p><em>Disclaimer: This is a template. Please replace the bracketed placeholders with your actual contact details to comply with German legal requirements.</em></p>
+                </div>
+                <!-- German Section -->
+                <div class="lang-de">
+                    <p><strong>Angaben gemäß § 5 DDG:</strong></p>
+                    <p>[Ihr Name / Name des Unternehmens]<br>
+                    [Straße und Hausnummer]<br>
+                    [PLZ und Ort]</p>
+
+                    <p><strong>Kontakt:</strong><br>
+                    Telefon: [Ihre Telefonnummer]<br>
+                    E-Mail: [Ihre E-Mail-Adresse]</p>
+
+                    <p><strong>Verantwortlich für den Inhalt nach § 18 MStV:</strong><br>
+                    [Ihr Name]<br>
+                    [Ihre Adresse]</p>
+                    
+                    <p><em>Hinweis: Dies ist eine Vorlage. Bitte ersetzen Sie die Platzhalter in eckigen Klammern durch Ihre tatsächlichen Kontaktdaten, um den deutschen rechtlichen Anforderungen zu entsprechen.</em></p>
+                </div>
             </div>
         </div>
     </dialog>
@@ -225,21 +248,41 @@
     <dialog id="datenschutzModal" class="legal-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Privacy Policy</h3>
-                <button class="close-modal">&times;</button>
+                <h3>Privacy Policy / Datenschutz</h3>
+                <div style="display: flex; align-items: center;">
+                    <button class="lang-modal-toggle btn-secondary btn-sm" style="margin-right: 1rem; font-size: 0.75rem; padding: 0.35rem 0.65rem;" aria-label="Toggle language / Sprache wechseln">DE / EN</button>
+                    <button class="close-modal">&times;</button>
+                </div>
             </div>
             <div class="modal-body">
-                <h4>1. General Information</h4>
-                <p>We take the protection of your personal data very seriously. This privacy policy explains what data we process when you visit this website.</p>
-                
-                <h4>2. Local Data Processing</h4>
-                <p>This application processes all texts and options exclusively in your local web browser using JavaScript. No text input is sent to, stored, or processed on any external server. The local storage (LocalStorage) of your browser is used solely to remember your preferences (active text, character limits, suffix styles, and dark mode theme) for your convenience.</p>
-                
-                <h4>3. Server Logs (GitHub Pages)</h4>
-                <p>This website is hosted on GitHub Pages. When accessing this website, the hosting provider (GitHub, Inc.) may collect metadata (such as your IP address, browser type, and time of access) in server log files. This processing is legally based on legitimate interests (security and delivery of the website) according to Art. 6 (1) (f) GDPR.</p>
-                
-                <h4>4. Your Rights</h4>
-                <p>You have the right to request information about your stored data, correction, deletion, or restriction of processing from the hosting provider. You also have the right to lodge a complaint with a supervisory authority.</p>
+                <!-- English Section -->
+                <div class="lang-en">
+                    <h4>1. General Information</h4>
+                    <p>We take the protection of your personal data very seriously. This privacy policy explains what data we process when you visit this website.</p>
+                    
+                    <h4>2. Local Data Processing</h4>
+                    <p>This application processes all texts and options exclusively in your local web browser using JavaScript. No text input is sent to, stored, or processed on any external server. The local storage (LocalStorage) of your browser is used solely to remember your preferences (active text, character limits, suffix styles, and dark mode theme) for your convenience.</p>
+                    
+                    <h4>3. Server Logs (GitHub Pages)</h4>
+                    <p>This website is hosted on GitHub Pages. When accessing this website, the hosting provider (GitHub, Inc.) may collect metadata (such as your IP address, browser type, and time of access) in server log files. This processing is legally based on legitimate interests (security and delivery of the website) according to Art. 6 (1) (f) GDPR.</p>
+                    
+                    <h4>4. Your Rights</h4>
+                    <p>You have the right to request information about your stored data, correction, deletion, or restriction of processing from the hosting provider. You also have the right to lodge a complaint with a supervisory authority.</p>
+                </div>
+                <!-- German Section -->
+                <div class="lang-de">
+                    <h4>1. Allgemeine Hinweise</h4>
+                    <p>Wir nehmen den Schutz Ihrer persönlichen Daten sehr ernst. Diese Datenschutzerklärung erklärt, welche Daten wir verarbeiten, wenn Sie diese Website besuchen.</p>
+
+                    <h4>2. Lokale Datenverarbeitung</h4>
+                    <p>Diese Anwendung verarbeitet alle Texte und Einstellungen ausschließlich in Ihrem lokalen Webbrowser mittels JavaScript. Es werden keine Texteingaben an externe Server gesendet, dort gespeichert oder verarbeitet. Die lokale Speicherung (LocalStorage) Ihres Browsers wird ausschließlich verwendet, um Ihre Einstellungen (Eingabetext, Zeichengrenzen, Suffix-Stile und das Farbschema) für Ihren nächsten Besuch zu speichern.</p>
+
+                    <h4>3. Server-Logfiles (GitHub Pages)</h4>
+                    <p>Diese Website wird auf GitHub Pages gehostet. Beim Zugriff auf diese Website kann der Hosting-Anbieter (GitHub, Inc.) Metadaten (wie Ihre IP-Adresse, Browsertyp und Uhrzeit des Zugriffs) in Server-Logfiles erfassen. Diese Verarbeitung basiert gesetzlich auf berechtigten Interessen (Sicherheit und Bereitstellung der Website) gemäß Art. 6 Abs. 1 lit. f DSGVO.</p>
+
+                    <h4>4. Ihre Rechte</h4>
+                    <p>Sie haben das Recht, vom Hosting-Anbieter Auskunft über Ihre gespeicherten Daten, Berichtigung, Löschung oder Einschränkung der Verarbeitung zu verlangen. Sie haben außerdem das Recht, sich bei einer Aufsichtsbehörde zu beschweren.</p>
+                </div>
             </div>
         </div>
     </dialog>
