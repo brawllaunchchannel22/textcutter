@@ -615,28 +615,28 @@ function setupEventListeners() {
     });
 
     // DE / EN language toggles inside modals
-    // Each modal independently tracks its language state
+    // Read actual DOM state so auto-applied language and manual clicks stay in sync
     document.querySelectorAll('dialog .lang-modal-toggle').forEach(toggleBtn => {
-        // Start in EN mode
-        let isDE = false;
         toggleBtn.addEventListener('click', () => {
-            isDE = !isDE;
             const modal = toggleBtn.closest('dialog');
             const enBlock = modal.querySelector('.lang-en');
             const deBlock = modal.querySelector('.lang-de');
 
-            if (isDE) {
-                // Show German, hide English
-                enBlock.classList.add('hidden-lang');
-                deBlock.classList.add('active');
-                toggleBtn.classList.add('de-active');
-                toggleBtn.textContent = 'EN';
-            } else {
-                // Show English, hide German
+            // Check current state from DOM — not a stale closure variable
+            const currentlyDE = deBlock.classList.contains('active');
+
+            if (currentlyDE) {
+                // Switch to English
                 enBlock.classList.remove('hidden-lang');
                 deBlock.classList.remove('active');
                 toggleBtn.classList.remove('de-active');
                 toggleBtn.textContent = 'DE';
+            } else {
+                // Switch to German
+                enBlock.classList.add('hidden-lang');
+                deBlock.classList.add('active');
+                toggleBtn.classList.add('de-active');
+                toggleBtn.textContent = 'EN';
             }
         });
     });
